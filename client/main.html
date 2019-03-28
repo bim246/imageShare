@@ -8,6 +8,7 @@
 		{{> navBar}}
 		{{> mainBody}}
 		{{> footerBar}}
+		{{> editImg}}
 	</div>
 </body>
 
@@ -65,17 +66,18 @@
 			<div class="container">
 				<div class="row">
 					{{#each allImages}}
-						<div class="col-md-4">
+						<div class="col-md-4" id ="{{_id}}">
 							<div class="card mb-4 shadow-sm">
 								<img src='{{path}}' alt="temp photo">
 								<div class="card-body">
-									<p class="card-text">{{desc}}</p>
+									<p class="card-text"><h3>{{title}}</h3>{{desc}}</p>
 									<div class="d-flex justify-content-between align-items-center">
 										<div class="btn-group">
 											<button type="button" class="btn btn-sm btn-outline-secondary">View</button>
 											<button type="button" class="btn btn-sm btn-outline-secondary">Edit</button>
 										</div>
 										<small class="text-muted">{{createdOn}} mins</small>
+										<button type="button" class="btn btn-sm btn-outline-secondary js-delete">Delete</button>
 									</div>
 								</div>
 							</div>
@@ -116,6 +118,7 @@
 					</button>
 				</div>
 				<div class="modal-body">
+					<input id="eId" type="hidden">
 					<img id="addImgPreview" src="" alt="">
 					<div class="input-group mb-3">
 					  <div class="input-group-prepend">
@@ -138,7 +141,48 @@
 				</div>
 				<div class="modal-footer">
 					<button type="button" class="btn btn-secondary js-cancelAdd">Cancel</button>
-					<button type="button" class="btn btn-primary js-saveImg">Add New Image</button>
+					<button  type="button" class="btn btn-primary js-saveImg">Add New Image</button>
+
+				</div>
+			</div>
+		</div>
+	</div>
+</template>
+<template name="editImg">
+	<!-- Modal -->
+	<div class="modal fade" id="editImgModal" tabindex="-1" role="dialog" aria-labelledby="editImgModalLabel" aria-hidden="true">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title" id="editImgModalLabel">Edit Image to Gallery</h5>
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+				</div>
+				<div class="modal-body">
+					<img id="editImgPreview" src="" alt="">
+					<div class="input-group mb-3">
+					  <div class="input-group-prepend">
+					    <span class="input-group-text" id="basic-addon1">Image</span>
+					  </div>
+					  <input id="imgPath" type="text" class="form-control" placeholder="Image path" aria-label="title">
+					</div>
+					<div class="input-group mb-3">
+					  <div class="input-group-prepend">
+					    <span class="input-group-text" id="basic-addon1">Title</span>
+					  </div>
+					  <input id="imgTitle" type="text" class="form-control" placeholder="Title of image" aria-label="title">
+					</div>
+					<div class="input-group">
+					  <div class="input-group-prepend">
+					    <span class="input-group-text">Image Description</span>
+					  </div>
+					  <textarea id="imgDesc" class="form-control" aria-label="Description"></textarea>
+					</div>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-secondary js-cancelAdd">Cancel</button>
+					<button type="button" class="btn btn-primary js-updateImg">Update</button>
 				</div>
 			</div>
 		</div>
